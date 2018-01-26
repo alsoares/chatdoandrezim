@@ -1,0 +1,31 @@
+<div class="container">
+    <div class="row">
+      <div class="col-md-8 col-md-offset-2">
+        <div class="bs-example" id="messages">
+          
+          <!-- Point: 1 -->
+          <div *ngFor="let mensagem of mensagens | async">
+            
+            <!-- Point: 2 -->
+            <div class="bubble" [class.you]="isYou(mensagem.email)" [class.me]="isMe(mensagem.email)">
+              <p>{{ mensagem.mensagem }}</p>
+              <div class="author">
+                {{ mensagem.displayName }} | {{ mensagem.timestamp | date:"dd/mm/yyyy hh:mm a" }}
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        <figure class="highlight">
+          
+          <!-- Point: 3 -->
+          <input type="textarea" class="message-text" [(ngModel)]="novaMensagem" (keyup.enter)="enviarMensagem()">
+          <a class="send-message" (click)="enviarMensagem()" href="#">SEND</a>
+          
+        </figure>
+
+
+      </div>
+    </div>
+  </div>
