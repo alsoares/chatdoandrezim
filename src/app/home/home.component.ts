@@ -14,7 +14,16 @@ export class HomeComponent implements OnInit {
   public mensagens: Observable<any[]>;
 
   constructor(public angularProvider: AngularProvider) { 
-    this.mensagens = this.angularProvider.mensagens.valueChanges();
+    this.mensagens = this.angularProvider.mensagens.snapshotChanges().map(
+      changes => {
+        return changes.map(c => ({
+            displayName:  c.payload.val().displayName,
+            mensagem: c.payload.val().mensagem,
+            timestamp: c.payload.val().timestamp
+
+        }))
+      }
+    );
   }
 
   ngOnInit() {
